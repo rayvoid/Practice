@@ -1,4 +1,4 @@
-﻿package ua.edu.sumdu.j2se.SkidanSergey.tasks;
+package ua.edu.sumdu.j2se.SkidanSergey.tasks;
 
 
 public class Task {
@@ -7,6 +7,7 @@ public class Task {
     private int currentEndTime;
     private int currentInterval;
     private boolean isActive;
+
 
    public  Task(String title, int time){
         this(title, time, -1, 0);
@@ -158,6 +159,9 @@ public class Task {
            System.out.println("Активная: " + isActive);
        }
     }
+    public int getInterval(){
+       return currentInterval;
+    };
 
     private String timeConverter(int notConvertedTime){
        int days = notConvertedTime / 24;;
@@ -165,4 +169,9 @@ public class Task {
 
        return days + " числа " + "в " +  hours + ":00";
     }
+
+    public int getCurrentEndTime(){
+        return currentEndTime;
+    }
+
 }
