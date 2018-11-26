@@ -1,6 +1,5 @@
 package ua.edu.sumdu.j2se.SkidanSergey.tasks;
 
-
 public class Task {
     private String currentTittle;
     private int currentTime;
@@ -8,11 +7,10 @@ public class Task {
     private int currentInterval;
     private boolean isActive;
 
-
-   public  Task(String title, int time){
+    public  Task(String title, int time){
         this(title, time, -1, 0);
         isActive = false;
-   }
+    }
     public  Task(String title, int start, int end, int interval){
         currentTittle = title;
         currentTime = start;
@@ -22,33 +20,35 @@ public class Task {
     }
 
     public  String getTitle(){
-       return currentTittle;
+        return currentTittle;
     }
+
     public  void setTitle(String title){
         currentTittle = title;
     }
     public boolean isActive(){
-       return isActive;
+        return isActive;
     }
+
     public  void setActive(boolean active){
         isActive = active;
     }
 
     public int getTime(){
-       if(!isRepeated()){
-           return currentTime;
-       }
-       else return currentTime;
+        if(!isRepeated()){
+            return currentTime;
+        }
+        else return currentTime;
     }
 
     public void setTime(int time){
-       if (!isRepeated()){
+        if (!isRepeated()){
             currentTime = time;
         }
         else{
-           currentTime = time;
-           currentEndTime = -1;
-           currentInterval = 0;
+            currentTime = time;
+            currentEndTime = -1;
+            currentInterval = 0;
         }
     }
 
@@ -66,7 +66,7 @@ public class Task {
             return currentEndTime;
         }
         else{
-           return currentTime;
+            return currentTime;
         }
     }
 
@@ -84,18 +84,16 @@ public class Task {
         currentTime = start;
         currentEndTime = end;
         currentInterval = interval;
-       }
+    }
 
     public boolean isRepeated(){
-       if (currentEndTime != -1) {return true;}
-       else {return false;}
+        if (currentEndTime != -1) {return true;}
+        else {return false;}
     }
 
     public int nextTimeAfter(int current){
-        if(!isRepeated()){                                                  //NoRepetable
-            System.out.println("not repeated");
-            if(isActive == true & current < currentTime){
-                System.out.println(currentTime);
+        if(!isRepeated()){
+            if(isActive & current < currentTime){
                 return currentTime;
             }
             else {
@@ -103,75 +101,23 @@ public class Task {
             }
         }
         else{
-            if(isActive == true){
+            if(isActive){
                 int nextTime = 0;
-                //До этого момента все хорошо!
-
-                //Если CURRENT <= StartTime
-                if (current < currentTime){nextTime = currentTime;}
-
-                //Если CURRENT > EndTime
+                if (current < currentTime){
+                    nextTime = currentTime;
+                }
                 if (current > currentEndTime){nextTime = -1;}
-
-                //Если CURRENT входит в диапазон
                 if (current >= currentTime & current <= currentEndTime){
-
                     int fullRepeats;
-                    int next;
-
                     fullRepeats = (current - currentTime) / currentInterval;
                     nextTime = currentTime + (currentInterval * (fullRepeats + 1));
-
                     if (nextTime > currentEndTime) {nextTime = -1;}
-
-
-
                 }
-
-
-
-            return  nextTime;
-
-
+                return  nextTime;
             }
             else {
                 return -1;
             }
-
-
-
         }
     }
-
-    public void taskInfo(){
-       if(currentEndTime == -1){
-           System.out.println("\nЗадача: " + currentTittle);
-           System.out.println("Повторяемая: " + isRepeated());
-           System.out.println("Дата начала: " + timeConverter(currentTime));
-           System.out.println("Активная: " + isActive);
-       }
-       else {
-           System.out.println("\nЗадача: " + currentTittle);
-           System.out.println("Повторяемая: " + isRepeated());
-           System.out.println("Дата начала: " + timeConverter(currentTime));
-           System.out.println("Дата окончания: " + timeConverter(currentEndTime));
-           System.out.println("Интервал: " + currentInterval / 24 + " день");
-           System.out.println("Активная: " + isActive);
-       }
-    }
-    public int getInterval(){
-       return currentInterval;
-    };
-
-    private String timeConverter(int notConvertedTime){
-       int days = notConvertedTime / 24;;
-       int hours  = notConvertedTime - days * 24;;
-
-       return days + " числа " + "в " +  hours + ":00";
-    }
-
-    public int getCurrentEndTime(){
-        return currentEndTime;
-    }
-
 }
